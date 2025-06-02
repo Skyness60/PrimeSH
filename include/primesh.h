@@ -6,7 +6,7 @@
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 10:33:21 by sperron           #+#    #+#             */
-/*   Updated: 2025/06/02 13:23:47 by sperron          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:14:53 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,19 @@
 
 // Standard C library headers
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
-# include <fcntl.h>
-#include <errno.h>
+# include <stdlib.h>
+# include <sys/time.h>
 # include <stdbool.h>
-# include <stdint.h>
-# include <limits.h>
-// POSIX library headers
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
 # include <signal.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+# include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
+# include <limits.h>
+# include <sys/stat.h>
 // This header file is the lib extern
 # include "../lib/ultimatelib.h"
 

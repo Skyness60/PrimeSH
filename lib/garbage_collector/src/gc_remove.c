@@ -5,38 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 17:30:35 by sperron           #+#    #+#             */
-/*   Updated: 2024/11/18 08:43:23 by sperron          ###   ########.fr       */
+/*   Created: 2025/02/11 13:10:41 by sperron           #+#    #+#             */
+/*   Updated: 2025/06/02 15:01:55 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/garbage_collector.h"
+#include "../include/garbage_collector_chain.h"
 
 void	remove_ptr(t_garb_c *trash, void *ptr)
 {
-	size_t	i;
-	void	**new_ptr;
+	t_node	*current;
+	t_node	*prev;
 
-	i = -1;
-	new_ptr = NULL;
-	if (trash == NULL || ptr == NULL)
-		return ;
-	while (++i < trash->count)
+	prev = NULL;
+	current = trash->head;
+	while (current)
 	{
-		if (trash->ptr_arr[i] == ptr)
+		if (current->ptr == ptr)
 		{
-			free(trash->ptr_arr[i]);
-			trash->ptr_arr[i] = trash->ptr_arr[--trash->count];
-			if (trash->count < trash->capacite / 2 && trash->capacite > 2)
-			{
-				trash->capacite /= 2;
-				new_ptr = ft_realloc(trash->ptr_arr, trash->capacite * 2 \
-				* sizeof(void *), trash->capacite * sizeof(void *));
-				if (!new_ptr)
-					return (gc_error(GC_REALLOC_ERROR, trash));
-				trash->ptr_arr = new_ptr;
-			}
+			if (prev)
+				prev->next = current->next;
+			else
+				trash->head = current->next;
+			if (current == trash->tail)
+				trash->tail = prev;
+			free(current->ptr);
+			free(current);
+			trash->count--;
 			return ;
 		}
+		prev = current;
+		current = current->next;
 	}
 }

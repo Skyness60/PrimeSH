@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_error.c                                     :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 18:33:24 by sperron           #+#    #+#             */
-/*   Updated: 2024/11/18 08:43:33 by sperron          ###   ########.fr       */
+/*   Created: 2025/06/02 15:11:24 by sperron           #+#    #+#             */
+/*   Updated: 2025/06/02 16:15:46 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/garbage_collector.h"
+#include "signals.h"
 
-void	gc_error(t_error error, t_garb_c *trash)
-{
-	if (error == GC_MALLOC_ERROR)
-	{
-		gc_putstr("Malloc error\n");
-		free_all(trash);
-	}
-	else if (error == GC_REALLOC_ERROR)
-	{
-		gc_putstr("Realloc error\n");
-		free_all(trash);
-	}
-}
+// void	handle_signal(bool exec, bool heredoc, t_data *data)
+// {
+// 	rl_event_hook = ft_nothing;
+// }

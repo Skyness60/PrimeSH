@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   gc_check.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sperron <sperron@student>                  +#+  +:+       +#+        */
+/*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 17:40:39 by sperron           #+#    #+#             */
-/*   Updated: 2024/10/26 18:04:56 by sperron          ###   ########.fr       */
+/*   Created: 2025/02/11 13:08:50 by sperron           #+#    #+#             */
+/*   Updated: 2025/06/02 15:00:08 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/garbage_collector.h"
+#include "../include/garbage_collector_chain.h"
 
 bool	is_ptr_in_trash(t_garb_c *trash, void *ptr)
 {
-	size_t	i;
+	t_node	*current;
 
-	i = 0;
-	while (i < trash->count)
+	current = trash->head;
+	while (current)
 	{
-		if (trash->ptr_arr[i] == ptr)
+		if (current->ptr == ptr)
 			return (true);
-		i++;
+		current = current->next;
 	}
 	return (false);
 }
