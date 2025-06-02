@@ -5,21 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 17:27:20 by sperron           #+#    #+#             */
-/*   Updated: 2024/11/18 08:43:19 by sperron          ###   ########.fr       */
+/*   Created: 2025/02/11 13:02:09 by sperron           #+#    #+#             */
+/*   Updated: 2025/06/02 15:01:58 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/garbage_collector.h"
+#include "../include/garbage_collector_chain.h"
 
-void	init_garbage_collector(t_garb_c *trash)
+void	init_garbage_collector_chain(t_garb_c *trash)
 {
-	trash->capacite = 2;
+	trash->head = NULL;
+	trash->tail = NULL;
 	trash->count = 0;
 	trash->verbose = false;
-	trash->ptr_arr = malloc(trash->capacite * sizeof(void *));
-	if (!trash->ptr_arr)
-		return (gc_error(GC_MALLOC_ERROR, trash));
-	if (trash->verbose == true)
-		gc_putstr("Garbage collector initialized\n");
+	if (trash->verbose)
+		printf("Garbage collector chain initialized\n");
 }

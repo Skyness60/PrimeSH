@@ -6,7 +6,7 @@
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:56:52 by sperron           #+#    #+#             */
-/*   Updated: 2025/06/02 13:24:10 by sperron          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:02:38 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@
 # include "libft/libft.h"
 # include "printf/includes/ft_printf.h"
 # include "gnl/get_next_line.h"
-# include "garbage_collector/include/garbage_collector.h"
+# include "garbage_collector/include/garbage_collector_chain.h"
 # include "garbage_descriptor/include/garbage_descriptor.h"
 #endif // !ULTIMATE_G

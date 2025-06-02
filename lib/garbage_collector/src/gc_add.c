@@ -5,44 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 17:27:51 by sperron           #+#    #+#             */
-/*   Updated: 2024/11/18 08:43:09 by sperron          ###   ########.fr       */
+/*   Created: 2025/02/11 13:03:56 by sperron           #+#    #+#             */
+/*   Updated: 2025/06/02 14:59:48 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/garbage_collector.h"
+#include "../include/garbage_collector_chain.h"
 
 void	add_ptr(t_garb_c *trash, void *ptr)
 {
-	void	**new_ptr;
+	t_node	*new;
 
-	new_ptr = NULL;
-	if (ptr == NULL)
+	if (!ptr || is_ptr_in_trash(trash, ptr))
 		return ;
-	if (is_ptr_in_trash(trash, ptr))
+	new = malloc(sizeof(t_node));
+	if (!new)
 		return ;
-	if (trash->count == trash->capacite)
-	{
-		trash->capacite *= 2;
-		new_ptr = ft_realloc((void *)trash->ptr_arr, \
-		trash->count * sizeof(void *), trash->capacite * sizeof(void *));
-		if (!new_ptr)
-			return (gc_error(GC_REALLOC_ERROR, trash));
-		trash->ptr_arr = new_ptr;
-	}
-	trash->ptr_arr[trash->count++] = ptr;
-	if (trash->verbose == true)
-		printf("Pointer %p added to the garbage collector\n", ptr);
+	new->ptr = ptr;
+	new->next = NULL;
+	if (trash->tail)
+		trash->tail->next = new;
+	else
+		trash->head = new;
+	trash->tail = new;
+	trash->count++;
+	if (trash->verbose)
+		printf("Pointer added to garbage collector chain\n");
 }
 
-void	add_ptr_tab(t_garb_c *trash, void **ptr_arr, int arr_len, \
+void	add_ptr_tab(t_garb_c *trash, void **ptr_tab, int arr_len, \
 bool is_malloced)
 {
 	int	i;
 
 	i = 0;
 	while (i < arr_len)
-		add_ptr(trash, ptr_arr[i++]);
-	if (is_malloced == true)
-		add_ptr(trash, ptr_arr);
+		add_ptr(trash, ptr_tab[i++]);
+	if (is_malloced)
+		add_ptr(trash, ptr_tab);
 }
