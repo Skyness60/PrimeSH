@@ -6,63 +6,80 @@
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 10:32:34 by sperron           #+#    #+#             */
-/*   Updated: 2025/06/02 16:15:53 by sperron          ###   ########.fr       */
+/*   Updated: 2025/06/03 16:54:34 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "primesh.h"
+#include "prompt.h"
+#include "git.h"
+#include "utils.h"
 
-static void initialize_data(t_data *data)
+int	g_signal_status = 0;
+
+static void	initialize_data(t_data *data)
 {
 	data->chain = NULL;
-	t_garb_c *garbage_collector = malloc(sizeof(t_garb_c));
-	if (!garbage_collector)
-	{
-		perror("Failed to initialize garbage collector");
+	data->garbage = malloc(sizeof(t_garb_c));
+	if (!data->garbage)
 		exit(EXIT_FAILURE);
-	}
-	init_garbage_collector_chain(garbage_collector);
+	init_garbage_collector_chain(data->garbage);
 	data->chain = malloc(sizeof(t_chain));
 	if (!data->chain)
-	{
-		perror("Failed to initialize chain");
-		free_all(garbage_collector);
-		exit(EXIT_FAILURE);
-	}
+		return (free_all(data->garbage), exit(EXIT_FAILURE));
 	data->chain->next = NULL;
 	data->chain->prev = NULL;
 	data->chain->data = data;
-	add_ptr(garbage_collector, data->chain);
+	add_ptr(data->garbage, data->chain);
+	data->signals = malloc(sizeof(t_signal));
+	if (!data->signals)
+	{
+		perror("Failed to initialize signals");
+		free_all(data->garbage);
+		exit(EXIT_FAILURE);
+	}
+	data->signals->extsh = 0;
+	add_ptr(data->garbage, data->signals);
+	g_signal_status = 0;
 }
 
-static void main_loop(t_data *data)
+static void	main_loop(t_data *data)
 {
-	(void)data;
+	char	*input;
+	char	prompt[1024];
+
+	input = NULL;
 	ft_printf("Welcome to PrimeSH! Type 'exit' to quit or CTRL + D.\n");
 	while (true)
 	{
-		// handle_signals();
-		char *input = readline("PrimeSH> ");
+		handle_signal(0, 0, data);
+		build_prompt(prompt, 1024, data);
+		input = readline(prompt);
 		if (!input || strcmp(input, "exit") == 0)
 		{
+			ft_printf("exit\n");
+			clear_history();
+			rl_clear_history();
 			free(input);
-			break;
+			free_all(data->garbage);
+			free(data->garbage);
+			break ;
 		}
 		add_history(input);
 		printf("You entered: %s\n", input);
 		free(input);
 	}
-	clear_history();
-	rl_clear_history();
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_data	data;
+	char	*local;
+
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	t_data	data;
-
+	local = setlocale(LC_ALL, "");
 	initialize_data(&data);
 	main_loop(&data);
 	return (0);

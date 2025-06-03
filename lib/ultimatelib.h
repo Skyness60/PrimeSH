@@ -6,7 +6,7 @@
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 12:56:52 by sperron           #+#    #+#             */
-/*   Updated: 2025/06/02 15:02:38 by sperron          ###   ########.fr       */
+/*   Updated: 2025/06/03 16:49:37 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 # include <sys/uio.h>
 # include <sys/stat.h>
 # include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include "libft/libft.h"
 # include "printf/includes/ft_printf.h"
 # include "gnl/get_next_line.h"

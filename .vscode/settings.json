@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"primesh.h": "c",
+		"string.h": "c"
+	}
+}

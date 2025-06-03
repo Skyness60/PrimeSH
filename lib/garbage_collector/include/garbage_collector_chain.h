@@ -6,7 +6,7 @@
 /*   By: sperron <sperron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 12:55:47 by sperron           #+#    #+#             */
-/*   Updated: 2025/06/02 15:01:23 by sperron          ###   ########.fr       */
+/*   Updated: 2025/06/03 11:16:08 by sperron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@
 
 typedef struct s_node
 {
-    void *ptr;
-    struct s_node *next;
-} t_node;
+	void			*ptr;
+	struct s_node	*next;
+}				t_node;
 
 typedef struct s_garb_c
 {
-    t_node *head;
-    t_node *tail;
-    size_t count;
-    bool verbose;
-}	t_garb_c;
+	t_node		*head;
+	t_node		*tail;
+	size_t		count;
+	bool		verbose;
+}				t_garb_c;
 
 void	remove_ptr(t_garb_c *trash, void *ptr);
 void	add_ptr(t_garb_c *trash, void *ptr);

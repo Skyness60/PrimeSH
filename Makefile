@@ -24,7 +24,6 @@ GD = $(GD_DIR)/libgarbage_descriptor.a
 LIBS = $(LIBFT) $(PRINTF) $(GNL) $(GC) $(GD)
 
 LDFLAGS = -lreadline
-
 all: clear_terminal libs $(NAME)
 	@echo "\033[1;32m💥 Compilation terminée ! 💥\033[0m"
 	@echo "\033[1;33m🔨 Projet prêt ! Lancer avec ./$(NAME)\033[0m"
